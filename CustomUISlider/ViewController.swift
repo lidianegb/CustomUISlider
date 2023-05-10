@@ -15,7 +15,7 @@ class ViewController: UIViewController {
         slider.delegate = self
         slider.minimumValue = 0
         slider.maximumValue = 1
-        slider.thumbImage = UIImage(systemName: "pencil.slash")
+        slider.thumbImage = UIImage(systemName: "paperplane.circle")
         slider.value = 0.4
         return slider
     }()
@@ -29,7 +29,15 @@ class ViewController: UIViewController {
         sliderView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         sliderView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24).isActive = true
         sliderView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24).isActive = true
-        sliderView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        sliderView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100).isActive = true
+        sliderView.topAnchor.constraint(equalTo: view.topAnchor, constant: 300).isActive = true
+      //  sliderView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        let time = DispatchTime.now() + 1
+        DispatchQueue.main.asyncAfter(deadline: time) {
+            self.sliderView.trackHighlightTintColor = .red
+            self.sliderView.thumbImage = UIImage(systemName: "circle.grid.cross")
+            self.sliderView.highlightedThumbImage = UIImage(systemName: "circle.grid.cross.fill")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,7 +47,7 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: CustomSliderDelegate {
-    func rangeSliderValueChanged(_ value: CGFloat) {
+    func valueDidChange(_ value: CGFloat) {
         print("Range slider value changed: \(value)")
     }
 }
